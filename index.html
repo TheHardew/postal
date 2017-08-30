@@ -1,0 +1,312 @@
+<!--
+This project was created by Piotr "TheHardew" Syrokomski.
+Do whatever you'd like with it, just credit me.
+
+Before you read the code, please know, that I approached this project
+while having practically no html, css or pojs knowledge. I know this code is horrendous.
+Please do NOT learn from this.
+
+Thanks to:
+    -    Postal 1 developers (seriously, they're awesome)
+    -    Mika "Crumblingstatue" Attila for creating Flowey's Time Machine
+-->
+
+<!DOCTYPE html>
+
+<html lang="en" manifest="manifest.appcache">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Postal save-file editor</title>
+
+    <meta id="author" content="Piotr &quot;TheHardew&quot; Syrokomski">
+
+    <script type="text/javascript" src="scripts.js"></script>
+
+    <style>
+        @font-face {
+            font-family: Roboto;
+            src: url("fonts/Roboto-Light.woff2");
+        }
+
+        * {
+            font-family: Roboto, sans-serif;
+            color: #fafafa;
+            font-variant-ligatures: none;
+        }
+
+        body {
+            background-color: #2a2a2a;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 300%;
+            margin: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        td.number {
+            display: flex;
+        }
+
+        input[type="number"] {
+            flex-grow: 1;
+        }
+
+        select,
+        option,
+        input[type="button"],
+        [type="number"] {
+            color: #000000;
+        }
+
+        footer {
+            display: flex;
+            background: #222222;
+            justify-content: space-between;
+            margin: 100px 0px 0px 0px;
+        }
+
+        .footer_text {
+            margin: 6px;
+        }
+
+        #main-content {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 8px;
+            flex: 1;
+        }
+
+        #site {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body id="site">
+
+    <header>
+        <h1>Postal save-file editor</h1>
+    </header>
+
+    <span style="color:yellow; margin: 8px;">If steam cloud replaces your new save-files, try placing them while the game is open!</span>
+
+    <main id="main-content">
+        <span>
+            <h2>File menu</h2>
+            <form>
+                <fieldset>
+                    <legend>Files</legend>
+                    Load save-file:<br>
+                    <input type="file" id="loaded_save"><br><br>
+                    <input type="number" id="save_number" value="0" min="0" max="7"> Save number<br>
+                    <input style="width: 140px" type="button" id="download_save" value="Download save">
+                </fieldset>
+            </form>
+        </span>
+
+        <span>
+            <h2>Safe to edit</h2>
+            <form>
+                <fieldset>
+                    <legend>Character</legend>
+                    <input style="width:100%;" type="button" id="maximise_character" value="Maximise health and armor">
+                    <table>
+                        <tr>
+                            <td>
+                                In-game value
+                            </td>
+                            <td></td>
+                            <td>
+                                Actual value
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="number">
+                                <input type="number" id="health_in-game" value="100" min="0" max="13107">
+                            </td>
+                            <td>=</td>
+                            <td class="number">
+                                <input type="number" id="health_real" min="0" max="65535">
+                            </td>
+                            <td>Health</td>
+                        </tr>
+                        <tr>
+                            <td class="number">
+                                <input type="number" id="armor_in-game" value="0" min="0" max="13107">
+                            </td>
+                            <td>=</td>
+                            <td class="number">
+                                <input type="number" id="armor_real" min="0" max="65535">
+                            </td>
+                            <td>Armor</td>
+                        </tr>
+                    </table><br>
+                    <fieldset>
+                        <legend>Ammunition</legend>
+                        <input type="button" id="maximise_ammo" value="Maximise">
+                        <input type="button" id="maximise_ammo_backpack" value="Maximise with backpack">
+                        <table>
+                            <tr>
+                                <td>
+                                    In-game value
+                                </td>
+                                <td></td>
+                                <td>
+                                    Actual value
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="number">
+                                    <input type="number" id="fuel_in-game" value="0" min="0" max="26214">
+                                </td>
+                                <td>=</td>
+                                <td class="number">
+                                    <input type="number" id="fuel_real" min="0" max="65535">
+                                </td>
+                                <td>Fuel</td>
+                            </tr>
+                        </table><br>
+                        <input type="number" id="grenades" min="0" max="65535"> Grenades<br>
+                        <input type="number" id="molotovs" min="0" max="65535"> Molotovs<br>
+                        <input type="number" id="missiles" min="0" max="65535"> Standard missiles<br>
+                        <input type="number" id="napalm" min="0" max="65535"> Napalm<br>
+                        <input type="number" id="shotgun_ammo" min="0" max="65535"> Shotgun ammo<br>
+                        <input type="number" id="mines" min="0" max="65535"> Mines<br>
+                        <input type="number" id="homing_missiles" min="0" max="65535"> Homing missiles<br>
+                    </fieldset>
+                </fieldset>
+                <span>
+                    <fieldset>
+                        <legend>Game settings</legend>
+                        <input type="number" id="difficulty" min="1" max="11"> Game difficulty<br>
+                    </fieldset>
+                    <fieldset>
+                        <legend>World</legend>
+                        <input type="number" id="level"> Level<br>
+                    </fieldset>
+                    <fieldset id="unlocked">
+                        <legend>Unlocks</legend>
+                        <input type="checkbox" id="unlocked_all">Unlocked all<br><br>
+                        <input type="checkbox" id="unlocked_napalm">Unlocked napalm launcher<br>
+                        <input type="checkbox" id="unlocked_backpack">Has backpack<br>
+                        <input type="checkbox" id="unlocked_missiles">Unlocked missile launcher<br>
+                        <input type="checkbox" id="unlocked_shotgun">Unlocked shotgun<br>
+                        <input type="checkbox" id="unlocked_assault_rifle">Unlocked assault rifle<br>
+                        <input type="checkbox" id="unlocked_flamethrower">Unlocked flamethrower<br>
+                    </fieldset>
+                </span>
+        <fieldset id="achieved">
+            <legend>Achievements</legend>
+            <input type="checkbox" id="achieved_all">Achieved all<br><br>
+
+            <input type="checkbox" id="used_cheats">Used cheats<br>
+            <input type="checkbox" id="killed_everything">Killed everything<br>
+            <input type="checkbox" id="killed_hostiles_only">Killed only hostiles<br><br>
+            <fieldset id="used">
+                <legend>Used weapons</legend>
+                <input type="checkbox" id="used_all">Used all<br><br>
+
+                <input type="checkbox" id="used_m16">Used M16<br>
+                <input type="checkbox" id="used_shotgun">Used shotgun<br>
+                <input type="checkbox" id="used_grenades">Used grenades<br>
+                <input type="checkbox" id="used_missiles">Used missiles<br>
+                <input type="checkbox" id="used_molotovs">Used molotovs<br>
+                <input type="checkbox" id="used_napalm">Used napalm launcher<br>
+                <input type="checkbox" id="used_flamethrower">Used flamethrower<br>
+                <input type="checkbox" id="used_proximity_mines">Used proximity mines<br>
+                <input type="checkbox" id="used_timed_mines">Used timed mines<br>
+                <input type="checkbox" id="used_shrapnel_mines">Used shrapnel mines<br>
+                <input type="checkbox" id="used_homing_missiles">Used homing missiles<br>
+                <input type="checkbox" id="used_assault_rifle">Used assault rifle<br>
+            </fieldset>
+        </fieldset>
+        </form>
+        </span>
+
+        <span>
+            <h2>Advanced</h2>
+            <form>
+                <fieldset>
+                    <legend>Save-file settings</legend>
+                    <input type="number" id="version"> Save-file version<br>
+                    <select id="action">
+                            <option value="0">ACTION_NOTHING</option>
+                            <option value="1">ACTION_PLAY_SINGLE (default)</option>
+                            <option value="2">ACTION_PLAY_BROWSE</option>
+                            <option value="3">ACTION_PLAY_HOST</option>
+                            <option value="4">ACTION_PLAY_CONNECT</option>
+                            <option value="5">ACTION_PLAY_CHALLENGE</option>
+                            <option value="6">ACTION_EDITOR</option>
+                            <option value="7">ACTION_DEMO_PLAYBACK</option>
+                            <option value="8">ACTION_DEMO_RECORD</option>
+                            <option value="9">ACTION_EDIT_INPUT_SETTINGS</option>
+                            <option value="10">ACTION_POSTAL_ORGAN</option>
+                            <option value="11">ACTION_LOAD_GAME</option>
+                            <option value="12">ACTION_PLAY_ADDON</option>
+                            <option value="13">ACTION_PLAY_ADDON2</option>
+                            <option value="14">ACTION_PLAY_ALL</option>
+                            <option value="15">ACTION_CONTINUE_GAME (mobile)</option>
+                    </select> Action<br>
+                </fieldset>
+            </form>
+        </span>
+
+        <span>
+            <h2>Obselete</h2>
+            <form>
+                <fieldset id="achieved_obselete">
+                    <legend>Achievements</legend>
+                    <input type="checkbox" id="achieved_all_obselete">Achieved all<br><br>
+
+                    <input type="checkbox" id="hardest_difficulty">Played on hardest difficulty<br><br>
+                    <fieldset id="used_obselete">
+                        <legend>Used weapons</legend>
+                        <input type="checkbox" id="used_all_obselete">Used all<br><br>
+
+                        <input type="checkbox" id="used_double_barrel">Used double barrel<br>
+                        <input type="checkbox" id="used_remote_mines">Used remote mines<br>
+                        <input type="checkbox" id="used_deathwad">Used deathwad<br>
+                    </fieldset>
+                </fieldset>
+                <span> 
+                    <fieldset>
+                        <legend>Time</legend>
+                        <input type="number" id="time_ms" min="0" max="4294967296"> ms
+                    </fieldset>
+                    <fieldset>
+                        <legend>Ammunition</legend>
+                        <input type="number" id="bullets" min="0" max="65535"> Bullets<br>
+                    </fieldset>
+                    <fieldset id="unlocked_obselete">
+                        <legend>Unlocks</legend>
+                        <input type="checkbox" id="unlocked_all_obselete">Unlocked all<br><br>
+
+                        <input type="checkbox" id="unlocked_double_barrel">Unlocked double barrel<br>
+                        <input type="checkbox" id="unlocked_deathwad">Unlocked deathwad launcher<br>
+                        <input type="checkbox" id="unlocked_m16">Unlocked M16<br>
+                    </fieldset>
+                </span>
+        </form>
+        </span>
+    </main>
+
+    <footer>
+        <span class="footer_text">License: Do whatever you want, just credit me</span>
+        <span class="footer_text">Inspired by <a href="https://crumblingstatue.github.io/FloweysTimeMachine/">Flowey's Time Machine</a></span>
+        <span class="footer_text">Created by Piotr "TheHardew" Syrokomski</span>
+    </footer>
+
+</body>
+
+</html>
