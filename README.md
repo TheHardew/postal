@@ -1,6 +1,6 @@
 # Postal save-file editor
   
-TheHardew.github.io/Postal-save-file-editor  
+http://TheHardew.github.io/Postal-save-file-editor  
   
 This project was created by Piotr "TheHardew" Syrokomski.  
 Do whatever you'd like with it, just credit me.  
