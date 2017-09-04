@@ -71,9 +71,12 @@ Thanks to:
             display: flex;
             background: #222222;
             justify-content: space-between;
-            margin: 100px 0px 0px 0px;
         }
-
+        
+        #save-file_structure {
+            margin: 90px 8px 8px 8px;
+        }
+        
         .footer_text {
             margin: 6px;
         }
@@ -177,13 +180,13 @@ Thanks to:
                                 <td>Fuel</td>
                             </tr>
                         </table><br>
-                        <input type="number" id="grenades" min="0" max="65535"> Grenades<br>
-                        <input type="number" id="molotovs" min="0" max="65535"> Molotovs<br>
-                        <input type="number" id="missiles" min="0" max="65535"> Standard missiles<br>
-                        <input type="number" id="napalm" min="0" max="65535"> Napalm<br>
                         <input type="number" id="shotgun_ammo" min="0" max="65535"> Shotgun ammo<br>
-                        <input type="number" id="mines" min="0" max="65535"> Mines<br>
+                        <input type="number" id="grenades" min="0" max="65535"> Grenades<br>
+                        <input type="number" id="missiles" min="0" max="65535"> Standard missiles<br>
                         <input type="number" id="homing_missiles" min="0" max="65535"> Homing missiles<br>
+                        <input type="number" id="molotovs" min="0" max="65535"> Molotovs<br>
+                        <input type="number" id="napalm" min="0" max="65535"> Napalm<br>
+                        <input type="number" id="mines" min="0" max="65535"> Mines<br>
                     </fieldset>
                 </fieldset>
                 <span>
@@ -198,12 +201,12 @@ Thanks to:
                     <fieldset id="unlocked">
                         <legend>Unlocks</legend>
                         <input type="checkbox" id="unlocked_all">Unlocked all<br><br>
-                        <input type="checkbox" id="unlocked_napalm">Unlocked napalm launcher<br>
-                        <input type="checkbox" id="unlocked_backpack">Has backpack<br>
-                        <input type="checkbox" id="unlocked_missiles">Unlocked missile launcher<br>
                         <input type="checkbox" id="unlocked_shotgun">Unlocked shotgun<br>
                         <input type="checkbox" id="unlocked_assault_rifle">Unlocked assault rifle<br>
+                        <input type="checkbox" id="unlocked_missiles">Unlocked missile launcher<br>
+                        <input type="checkbox" id="unlocked_napalm">Unlocked napalm launcher<br>
                         <input type="checkbox" id="unlocked_flamethrower">Unlocked flamethrower<br>
+                        <input type="checkbox" id="unlocked_backpack">Has backpack<br>
                     </fieldset>
                 </span>
         <fieldset id="achieved">
@@ -300,7 +303,9 @@ Thanks to:
         </form>
         </span>
     </main>
-
+    
+    <a href="Postal save-file structure.xlsx" download>Download Postal save-file structure spreadsheet</a>
+    
     <footer>
         <span class="footer_text">License: Do whatever you want, just credit me</span>
         <span class="footer_text">Inspired by <a href="https://crumblingstatue.github.io/FloweysTimeMachine/">Flowey's Time Machine</a></span>
